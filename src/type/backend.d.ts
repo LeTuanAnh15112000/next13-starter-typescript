@@ -1,4 +1,4 @@
-interface IBlogs {
+interface IBlog {
   id: number;
   content: string;
   author: string;
