@@ -39,7 +39,7 @@ function CreateModel(props: IProp) {
     if (result && result.title && result.author && result.content) {
       mutate("http://localhost:8000/blogs");
       toast.success("Create news blog success! ");
-      setShowModalCreate(false);
+      handleCloseModel();
     }
   };
 
@@ -86,6 +86,7 @@ function CreateModel(props: IProp) {
               <Form.Label>Content</Form.Label>
               <Form.Control
                 as="textarea"
+                placeholder="content..."
                 rows={3}
                 value={content}
                 onChange={(e) => setContent(e.target.value)}

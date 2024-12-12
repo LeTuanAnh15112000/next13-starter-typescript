@@ -1,26 +1,13 @@
-"use client";
-
-import TableContent from "@/components/table/app.table";
 import styles from "./page.module.css";
 import Link from "next/link";
 import linkStyle from "../styles/app.module.scss";
-import useSWR from "swr";
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+  title: 'Home page | Learn NextJs with TypeScript basic',
+  description: 'try hard',
+}
 
 export default function Home() {
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
-  const { data, error, isLoading } = useSWR(
-    "http://localhost:8000/blogs",
-    fetcher,
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
-  );
-  if (!data) {
-    return "Loading...";
-  }
   return (
     <main className={styles.main}>
       <ul className={linkStyle.list}>
@@ -40,7 +27,6 @@ export default function Home() {
           </Link>
         </li>
       </ul>
-      <TableContent blogs={data?.sort((a: any, b: any) => b.id - a.id)} />
     </main>
   );
 }

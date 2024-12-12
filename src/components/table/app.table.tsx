@@ -1,7 +1,9 @@
 "use client";
 
 import CreateModel from "@/components/modal/create.modal";
+import DeleteModal from "@/components/modal/delete.modal";
 import UpdateModel from "@/components/modal/update.modal";
+import Link from "next/link";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
@@ -15,6 +17,8 @@ export default function TableContent(props: IProps) {
   const [blog, setBlog] = useState<IBlog | null>(null);
   const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
   const [showModalUpdate, setShowModalUpdate] = useState<boolean>(false);
+  const [showModalDelete, setShowModalDelete] = useState<boolean>(false);
+  const [idDelete, setIdDelete] = useState<number | null>(null);
   return (
     <>
       <div
@@ -52,7 +56,9 @@ export default function TableContent(props: IProps) {
                 <td>{item.title}</td>
                 <td>{item.author}</td>
                 <td>
-                  <Button variant="primary">View</Button>
+                  <Link href={`/blogs/${item.id}`} className="btn btn-primary">
+                    View
+                  </Link>
                   <Button
                     variant="warning"
                     className="mx-3"
@@ -63,7 +69,15 @@ export default function TableContent(props: IProps) {
                   >
                     Edit
                   </Button>
-                  <Button variant="danger">Delete</Button>
+                  <Button
+                    variant="danger"
+                    onClick={() => {
+                      setShowModalDelete(true);
+                      setIdDelete(item.id);
+                    }}
+                  >
+                    Delete
+                  </Button>
                 </td>
               </tr>
             );
@@ -79,6 +93,11 @@ export default function TableContent(props: IProps) {
         setShowModalUpdate={setShowModalUpdate}
         blog={blog}
         setBlog={setBlog}
+      />
+      <DeleteModal
+        showModalDelete={showModalDelete}
+        setShowModalDelete={setShowModalDelete}
+        idDelete={idDelete}
       />
     </>
   );

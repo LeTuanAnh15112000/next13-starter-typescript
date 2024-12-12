@@ -59,7 +59,7 @@ function UpdateModel(props: IProp) {
       if (result && result.title && result.author && result.content) {
         mutate("http://localhost:8000/blogs");
         toast.warning("Create news blog success! ");
-        setShowModalUpdate(false);
+        handleCloseModel();
       }
     } catch (error) {
       toast.error("An error occurred while updating the blog.");
